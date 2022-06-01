@@ -11,6 +11,20 @@ def leia_int(txt):
         else:
             return i
 
+
+def leia_float(txt):
+    while True:
+        try:
+            i = float(input(txt).replace(',', '.'))
+        except (TypeError, ValueError):
+            print(pinta('ERRO. DIGITE UM NÚMERO VÁLIDO', 'red'))
+            continue
+        except (KeyboardInterrupt):
+            print(pinta('Operação cancelada pelo usuário.', 'red'))
+            return 0
+        else:
+            return i
+
 def pinta(txt, cor):
     cores = [
         {'cor': 'red', 'cod': f'\033[31m{txt}\033[m'},
@@ -35,6 +49,7 @@ def cabecalho(txt):
     print(txt.center(42))
     print(linha())
 
+
 def menu(itens):
     cabecalho('MENU INICIAL')
     for n, i in enumerate(itens):
@@ -43,3 +58,34 @@ def menu(itens):
     step1 = leia_int('Escolha uma opção da lista: ')
     return step1
 
+
+def cria_arq(nome):
+    try:
+        arq = open(nome, 'rt')
+        arq.close()
+    except:
+        print(f'Primeiro uso do programa.\n' +
+              pinta(f'Criaremos um banco de dados com nome "{nome}.txt"', 'green'))
+        try:
+            arq = open(nome, 'wt+')
+            arq.close()
+        except Exception as erro:
+            print(pinta('ERRO AO CRIAR O ARQUIVO', 'red'))
+            print(f'O erro foi: {erro.__class__}')
+
+def cadastro(arq, prod, price='indefinido', qtd=0):
+    ler_arquivo = open(arq, 'rt')
+    alt_arquivo = open(arq, 'at')
+    produto_novo = True
+    for linha in ler_arquivo:
+        dado = linha.split(';')
+        if dado[0].lower() == prod.lower():
+            produto_novo = False
+    if produto_novo:
+        alt_arquivo.write(f'{prod};{price:.2f};{qtd}\n')
+        print('Cadastro concluído')
+    else:
+        print(pinta('ESTE PRODUTO JÁ FOI CADASTRADO!', 'red'))
+        print('Utilize a opção de atualizar estoque no menu principal')
+    ler_arquivo.close()
+    alt_arquivo.close()
