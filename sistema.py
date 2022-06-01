@@ -7,7 +7,7 @@ itens_menu = ['Cadastrar novo produto', 'Atualizar estoque', 'Consultar estoque'
 
 
 while True:
-    menu_principal = menu(itens_menu)
+    menu_principal = menu(itens_menu, 'menu inicial')
     if menu_principal == 1:
         prod = input('Digite o nome do novo produto: ')
         price = leia_float('Digite o preço do produto: R$ ')
@@ -15,9 +15,15 @@ while True:
         cadastro(arq, prod, price, qtd)
 
     elif menu_principal == 2:
-        pass #função de att a qtd de cada produto no estoque
+       choice = leia_int('Digite o código do produto (999 para cancelar): ')
+       if choice == 999:
+           pass
+       else:
+           edit_arq(arq, choice)
+
     elif menu_principal == 3:
-        pass #função de printar o estoque
+        imprime_arq(arq)
+
     elif menu_principal == 4:
         print('Programa encerrado pelo usuário.\nVOLTE SEMPRE')
         break
