@@ -1,7 +1,7 @@
 from library import *
 
 
-arq = 'dados.txt'
+arq = 'estoque.txt'
 cria_arq(arq)
 itens_menu = ['Cadastrar novo produto', 'Atualizar estoque', 'Consultar estoque', 'Encerrar programa']
 

@@ -66,7 +66,7 @@ def cria_arq(nome):
         arq.close()
     except:
         print(f'Primeiro uso do programa.\n' +
-              pinta(f'Criaremos um banco de dados com nome "{nome}.txt"', 'green'))
+              pinta(f'Criaremos um banco de dados com nome "{nome}"', 'green'))
         try:
             arq = open(nome, 'wt+')
             arq.close()
